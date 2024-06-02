@@ -140,6 +140,11 @@ loop_cmds() {
 				new_spd="100"
 			fi
 			if [ "$new_spd" -ne "$cur_spd" ]; then
+				if [ "$new_spd" -eq "0" ]; then
+					set_fan_control 0 0
+				elif [ "$cur_spd" -eq "0" ]; then
+					set_fan_control 0 1
+				fi
 				cur_spd="$new_spd"
 				set_speed
 				i=0
