@@ -13,33 +13,33 @@
 
 ## Creating the service
 
-Now the original author intends this to be a user service, I think it should be a system service. May need root access for these steps, idk.
-
 - Clone the repo
 
 ```
-git clone ssh://git@github.com/Goldan32/nfancurve /usr/local/share/nfancurve
+git clone ssh://git@github.com/Goldan32/nfancurve /home/goldan/.local/share/programs/
 ```
 
 - Create the symlinks
 
 ```
-sudo ln -s /usr/local/share/nfancurve/temp.sh /usr/local/bin/nfancurve
-sudo ln -s /usr/local/share/nfancurve/config /etc/nfancurve.conf
-sudo ln -s /usr/local/share/nfancurve/nfancurve.service /etc/systemd/system/nfancurve.service
+sudo ln -s /home/goldan/.local/share/programs/temp.sh /usr/local/bin/nfancurve
+sudo ln -s /home/goldan/.local/share/programs/config /etc/nfancurve.conf
+sudo ln -s /home/goldan/.local/share/programs/nfancurve.service /etc/systemd/user/nfancurve.service
 ```
 
 - Restart systemd daemon
 
 ```
-sudo systemctl daemon-reload
+systemctl --user daemon-reload
 ```
 
 - Enable and start the new service
 
 ```
-sudo systemctl enable nfancurve
-sudo systemctl start nfancurve
+mkdir -p /home/goldan/.config/systemd/user/default.target.wants/
+sudo chown -R goldan:goldan /home/goldan/.config/systemd/user
+systemctl --user enable nfancurve
+systemctl --user start nfancurve
 ```
 
 - ...
